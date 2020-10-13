@@ -8,6 +8,11 @@ const playButton = document.getElementById('play-button');
 
 const socket = io("http://localhost:3000")
 
+let snake
+let foodX
+let foodY
+let score = 0
+
 let changingDirection = false
 document.addEventListener("keydown", keyPressedHandler)
 
@@ -19,7 +24,13 @@ socket.on("connected", (message) => {
 socket.on("gameState", (gameStateObject) => {
     console.log(gameStateObject)
     snake = gameStateObject.snake
+    score = gameStateObject.score
+    foodX = gameStateObject.food.X
+    foodY = gameStateObject.food.Y
+
+    document.getElementById('score').innerHTML = score;
     clearCanvas()
+    drawFood()
     drawSnake()
 })
 
@@ -27,8 +38,11 @@ playButton.onclick = () => {
     socket.emit('startGame',)
 };
 
-
-
+function drawFood() {
+    ctx.fillStyle = 'red';
+    ctx.fillRect(foodX, foodY, 10, 10);
+    ctx.strokeRect(foodX, foodY, 10, 10);
+}
 
 function drawSnakePart(snakePart) {
     ctx.fillStyle = 'brown';
