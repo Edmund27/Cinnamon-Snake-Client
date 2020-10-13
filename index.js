@@ -12,21 +12,19 @@ socket.on("connected", (message) => {
     console.log("From server:", message)
 })
 
-ctx.fillStyle = CANVAS_BACKGROUND_COLOUR;
-ctx.strokestyle = CANVAS_BORDER_COLOUR;
-
-ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
-ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
-
-
-
 socket.on("gameState", (gameStateObject) => {
     console.log(gameStateObject)
     snake = gameStateObject.snake
     gameCanvas = gameStateObject.canvas
-
+    clearCanvas()
     drawSnake()
 })
+
+playButton.onclick = () => {
+    socket.emit('startGame',)
+};
+
+
 
 
 function drawSnakePart(snakePart) {
@@ -38,4 +36,13 @@ function drawSnakePart(snakePart) {
 
 function drawSnake() {
     snake.forEach(drawSnakePart);
+}
+
+
+function clearCanvas() {
+    ctx.fillStyle = "white";
+    ctx.strokestyle = "black";
+
+    ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+    ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
 }
