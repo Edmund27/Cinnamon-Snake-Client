@@ -8,6 +8,10 @@ const playButton = document.getElementById('play-button');
 
 const socket = io("http://localhost:3000")
 
+let changingDirection = false
+document.addEventListener("keydown", keyPressedHandler)
+
+
 socket.on("connected", (message) => {
     console.log("From server:", message)
 })
@@ -15,7 +19,6 @@ socket.on("connected", (message) => {
 socket.on("gameState", (gameStateObject) => {
     console.log(gameStateObject)
     snake = gameStateObject.snake
-    gameCanvas = gameStateObject.canvas
     clearCanvas()
     drawSnake()
 })
@@ -45,4 +48,9 @@ function clearCanvas() {
 
     ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
     ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
+}
+
+function keyPressedHandler(event) {
+    console.log(event.keyCode)
+    socket.emit('changeDirection', event.keyCode)
 }
