@@ -65,6 +65,6 @@ function clearCanvas() {
 }
 
 function keyPressedHandler(event) {
-    console.log(event.keyCode)
+    // console.log(event.keyCode)
     socket.emit('changeDirection', event.keyCode)
 }
