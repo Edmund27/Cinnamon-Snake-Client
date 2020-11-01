@@ -22,7 +22,7 @@ socket.on("connected", (message) => {
 })
 
 socket.on("gameState", (gameStateObject) => {
-    console.log(gameStateObject)
+    //console.log(gameStateObject)
     snake = gameStateObject.snake
     score = gameStateObject.score
     foodX = gameStateObject.food.X
@@ -59,6 +59,7 @@ function drawSnake() {
 function clearCanvas() {
     ctx.fillStyle = "white";
     ctx.strokestyle = "black";
+
 
     ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
     ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
